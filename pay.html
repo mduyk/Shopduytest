@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thanh toán</title>
+
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    background: #020617;
+    color: white;
+    margin: 0;
+}
+
+.box {
+    background: #1e293b;
+    padding: 20px;
+    width: 320px;
+    border-radius: 10px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+button {
+    margin-top: 15px;
+    background: #22c55e;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.copy {
+    color: #4ade80;
+    font-weight: bold;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>Thông tin thanh toán</h2>
+
+    <p><b>Gói:</b> <span id="goi"></span></p>
+    <p><b>Số tiền:</b> <span id="tien"></span></p>
+
+    <p><b>STK:</b> 0588807300000</p>
+    <p><b>Chủ TK:</b> Cao Minh Duy</p>
+
+    <p>
+        <b>Nội dung CK:</b>
+        <span id="noidung" class="copy" onclick="copyText()"></span>
+    </p>
+
+    <p style="color: yellow; font-weight: bold;">
+        ⚠️ Nhập kèm số điện thoại khi chuyển khoản
+    </p>
+
+    <button onclick="paid()">Tôi đã thanh toán</button>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const goi = params.get("goi") || "Không rõ";
+
+const prices = {
+    "Proxy Ngày": "10.000đ",
+    "Proxy Tuần": "40.000đ",
+    "Proxy Tháng": "60.000đ",
+    "Proxy Vĩnh viễn": "300.000đ"
+};
+
+document.getElementById("goi").innerText = goi;
+document.getElementById("tien").innerText = prices[goi] || "Không rõ";
+
+function generateContent() {
+    let randomNumber = Math.floor(100000 + Math.random() * 900000);
+    return "MDUYK" + randomNumber;
+}
+
+const content = generateContent();
+document.getElementById("noidung").innerText = content;
+
+function copyText() {
+    navigator.clipboard.writeText(content);
+    alert("Đã copy nội dung!");
+}
+
+function paid() {
+    alert("Nếu quên ghi số điện thoại, liên hệ admin: 0328033706");
+}
+</script>
+
+</body>
+</html>
